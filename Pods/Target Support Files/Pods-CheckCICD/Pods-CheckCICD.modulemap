@@ -1,0 +1,6 @@
+framework module Pods_CheckCICD {
+  umbrella header "Pods-CheckCICD-umbrella.h"
+
+  export *
+  module * { export * }
+}
