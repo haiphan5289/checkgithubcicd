@@ -10,4 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the app
-      run: xcodebuild -scheme CheckCICD -configuration Release
+      run:  xcodebuild -scheme CheckCICD \
+            -sdk iphonesimulator \
+            -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
+            -configuration Debug \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
