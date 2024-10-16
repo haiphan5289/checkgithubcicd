@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the app
-      run: xcodebuild -scheme YourScheme -configuration Release
+      run: xcodebuild -scheme CheckCICD -configuration Release
