@@ -22,10 +22,10 @@ jobs:
           xcode-version: '14.3.1'
 
       - name: Build project
-        run: xcodebuild -scheme YourAppName -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' build
+        run: xcodebuild -scheme CheckCICD -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' build
 
       - name: Run tests
-        run: xcodebuild test -scheme YourAppName -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' -enableCodeCoverage YES
+        run: xcodebuild test -scheme CheckCICD -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' -enableCodeCoverage YES
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
