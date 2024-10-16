@@ -22,7 +22,7 @@ jobs:
           xcode-version: '14.3.1'
 
       - name: Clean project
-        run: xcodebuild clean -scheme EasyAudio
+        run: xcodebuild clean -scheme CheckCICD
         
       - name: Build project
         run: |
