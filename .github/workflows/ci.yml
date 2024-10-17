@@ -25,8 +25,8 @@ jobs:
 
       # Step 3: Install CocoaPods
       - name: Install CocoaPods
-        run: sudo gem install cocoapods
-
+        run: pod install --repo-update
+        
       # Step 4: Set up CocoaPods repo (optional but may help if the repo is not set up in the environment)
       - name: Set up CocoaPods repo
         run: pod repo update
