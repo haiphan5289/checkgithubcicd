@@ -13,46 +13,33 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
         
-      # Step 2: Set up Xcode
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '15.0'
         
-      # Step 3: Install CocoaPods
       - name: Install CocoaPods
         run: pod install --repo-update
-        
-      # Step 4: Set up CocoaPods repo (optional but may help if the repo is not set up in the environment)
-      - name: Set up CocoaPods repo
-        run: pod repo update
-        
-      # Step 5: Run pod install
+
       - name: Install Pods
         run: pod install
         working-directory: ./checkcicd  # Adjust if your Podfile is in a subdirectory
             
-      # Step 6: Create Derived Data directory if it doesn't exist
-      - name: Create Derived Data directory if it doesnt exist
+      - name: Create Derived Data directory if it doesn't exist
         run: mkdir -p ~/Library/Developer/Xcode/DerivedData
         
-      # Step 7: Set permissions on Derived Data
       - name: Set permissions on Derived Data
         run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
         
-      # Step 8: Clean Derived Data (optional, helps avoid cache issues)
-      - name: Clean Derived Data
+      - name: Clean Derived Data (optional)
         run: sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
         
-      # Step 9: Clean the project (optional step)
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
         
-      # Step 10: Build the project
       - name: Build project
         run: |
           xcodebuild -scheme CheckCICD \
@@ -60,12 +47,7 @@ jobs:
           -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGN_IDENTITY="" \
-          USE_SANDBOX=NO \
+          OTHER_LDFLAGS="-framework Differentiator" \
+          FRAMEWORK_SEARCH_PATHS='$(inherited) $(PROJECT_DIR)/Pods/**' \
+          LIBRARY_SEARCH_PATHS='$(inherited) $(PROJECT_DIR)/Pods/**' \
           build
-        
-      # Step 11: Upload test results (optional)
-      - name: Upload test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: ./TestResults
