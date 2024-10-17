@@ -28,6 +28,10 @@ jobs:
       - name: Install CocoaPods
         run: pod install --repo-update
         working-directory: ./checkcicd
+        
+      - name: Create Derived Data directory if it doesn't exist
+        run: mkdir -p ~/Library/Developer/Xcode/DerivedData
+
 
       - name: Set permissions on Derived Data
         run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
