@@ -53,12 +53,11 @@ jobs:
             arch -x86_64 pod install --repo-update
 
       # Step 6: Set permissions on Derived Data (optional)
-      - name: Set permissions on Derived Data
-        run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
+      
 
       # Step 7: Clean Derived Data (optional, helps avoid cache issues)
-      - name: Clean Derived Data
-        run: sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
+#      - name: Clean Derived Data
+#        run: sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
 
       # Step 8: Clean the project (optional)
       - name: Clean project
