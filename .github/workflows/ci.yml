@@ -13,35 +13,50 @@ jobs:
     runs-on: macos-latest
     
     steps:
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
         
+      # Step 2: Set up Xcode
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '15.0'
-        
-      - name: Clean CocoaPods cache (optional)
-        run: pod cache clean --all
+
+      # Step 3: Install cocoapods-clean (to ensure pod cleanup)
+      - name: Install cocoapods-clean
+        run: sudo gem install cocoapods-clean
+
+      # Step 4: Deintegrate CocoaPods (removes all CocoaPods integrations)
+      - name: Deintegrate CocoaPods
+        run: pod deintegrate
+        working-directory: ./checkcicd  # Adjust if your Podfile is in a subdirectory
+      
+      # Step 5: Clean CocoaPods (cleans up all CocoaPods related artifacts)
+      - name: Clean CocoaPods
+        run: |
+          pod clean
+          pod cache clean --all
         working-directory: ./checkcicd
 
+      # Step 6: Install CocoaPods with repo update
       - name: Install CocoaPods
         run: pod install --repo-update
         working-directory: ./checkcicd
-        
-      - name: Create Derived Data directory if it doesn't exist
-        run: mkdir -p ~/Library/Developer/Xcode/DerivedData
-
-
+      
+      # Step 7: Set permissions on Derived Data (optional)
       - name: Set permissions on Derived Data
         run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
-        
-      - name: Clean Derived Data (optional)
+
+      # Step 8: Clean Derived Data (optional, helps avoid cache issues)
+      - name: Clean Derived Data
         run: sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
-        
+
+      # Step 9: Clean the project (optional)
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
-        
+
+      # Step 10: Build the project
       - name: Build project
         run: |
           xcodebuild -scheme CheckCICD \
@@ -49,7 +64,4 @@ jobs:
           -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGN_IDENTITY="" \
-          OTHER_LDFLAGS="-framework SnapKit" \
-          FRAMEWORK_SEARCH_PATHS='$(inherited) $(PROJECT_DIR)/Pods/**' \
-          LIBRARY_SEARCH_PATHS='$(inherited) $(PROJECT_DIR)/Pods/**' \
           build
