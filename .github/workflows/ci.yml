@@ -9,5 +9,6 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v3
+    - xcodebuild clean -scheme CheckCICD
     - name: Build the app
       run:  xcodebuild CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO platform=iOS Simulator,name=iPhone 14,OS=16.0
