@@ -25,9 +25,9 @@ jobs:
       - name: Clean CocoaPods cache
         run: pod cache clean --all
 
-      - name: Pod Install
-        working-directory: ./checkcicd
-        run: pod install --verbose
+      - name: Install CocoaPods with repo update
+        working-directory: ./checkcicd  # Adjust the path if necessary
+        run: pod install --repo-update
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
 
