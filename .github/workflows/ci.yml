@@ -42,27 +42,18 @@ jobs:
 
       # Step 7: Clean the project (optional step)
       - name: Clean project
-        run: xcodebuild clean -scheme YourSchemeName
+        run: xcodebuild clean -scheme CheckCICD
 
       # Step 8: Build the project
       - name: Build project
         run: |
-          xcodebuild -scheme YourSchemeName \
+          xcodebuild -scheme CheckCICD \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
             -configuration Debug \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             build
-
-      # Step 9: Run tests (optional, if you have tests)
-      - name: Run tests
-        run: |
-          xcodebuild test \
-            -scheme YourSchemeName \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' \
-            -enableCodeCoverage YES
 
       # Step 10: Upload test results (optional)
       - name: Upload test results
