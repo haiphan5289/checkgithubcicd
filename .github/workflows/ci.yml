@@ -28,5 +28,14 @@ jobs:
       - name: Pod Install
         working-directory: ./checkcicd
         run: pod install --verbose
+      - name: Clean project
+        run: xcodebuild clean -scheme CheckCICD
 
-      # Continue with the rest of your workflow...
+      - name: Build project
+        run: |
+          xcodebuild -scheme CheckCICD \
+          -sdk iphonesimulator \
+          -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGN_IDENTITY="" \
+          build
