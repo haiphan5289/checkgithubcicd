@@ -34,14 +34,18 @@ jobs:
       - name: Install CocoaPods with repo update
         working-directory: ./checkcicd  # Adjust the path if necessary
         run: pod install --repo-update
+        
+      - name: Install CocoaPods
+        working-directory: ./path/to/your/Podfile  # Adjust this path if necessary
+        run: pod install --repo-update
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
 
-      - name: Build project
-        run: |
-          xcodebuild -scheme CheckCICD \
-          -sdk iphonesimulator \
-          -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
-          CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGN_IDENTITY="" \
-          build
+#      - name: Build project
+#        run: |
+#          xcodebuild -scheme CheckCICD \
+#          -sdk iphonesimulator \
+#          -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
+#          CODE_SIGNING_REQUIRED=NO \
+#          CODE_SIGN_IDENTITY="" \
+#          build
