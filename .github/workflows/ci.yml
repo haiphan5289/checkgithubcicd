@@ -22,9 +22,11 @@ jobs:
           xcode-version: '14.3.1'
 
       - name: Install CocoaPods
-        run: pod install
+        run: |
+          sudo gem install cocoapods
+          pod install
 
-      - name: Clean Derived Data  # Correct indentation here
+      - name: Clean Derived Data
         run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
   
       - name: Clean project
@@ -39,6 +41,14 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             build -verbose
+
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -scheme CheckCICD \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' \
+            -enableCodeCoverage YES
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
