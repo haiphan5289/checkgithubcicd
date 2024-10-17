@@ -24,6 +24,9 @@ jobs:
       - name: Install CocoaPods
         run: pod install
 
+     - name: Clean Derived Data
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
+  
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
 
