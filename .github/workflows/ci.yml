@@ -21,16 +21,14 @@ jobs:
         with:
           xcode-version: '15.0'
         
+      - name: Clean CocoaPods cache (optional)
+        run: pod cache clean --all
+        working-directory: ./checkcicd
+
       - name: Install CocoaPods
         run: pod install --repo-update
+        working-directory: ./checkcicd
 
-      - name: Install Pods
-        run: pod install
-        working-directory: ./checkcicd  # Adjust if your Podfile is in a subdirectory
-            
-      - name: Create Derived Data directory if it doesn't exist
-        run: mkdir -p ~/Library/Developer/Xcode/DerivedData
-        
       - name: Set permissions on Derived Data
         run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
         
@@ -47,7 +45,7 @@ jobs:
           -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGN_IDENTITY="" \
-          OTHER_LDFLAGS="-framework Differentiator" \
+          OTHER_LDFLAGS="-framework SnapKit" \
           FRAMEWORK_SEARCH_PATHS='$(inherited) $(PROJECT_DIR)/Pods/**' \
           LIBRARY_SEARCH_PATHS='$(inherited) $(PROJECT_DIR)/Pods/**' \
           build
