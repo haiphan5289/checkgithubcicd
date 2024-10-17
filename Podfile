@@ -13,5 +13,6 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxDataSources'
 pod 'RxGesture'
+pod 'Differentiator'
 
 end
