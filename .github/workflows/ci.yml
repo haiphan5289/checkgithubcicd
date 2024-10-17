@@ -35,7 +35,7 @@ jobs:
             -configuration Debug \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            build ---verbose
+            build --verbose
 
       - name: Run tests
         run: |
