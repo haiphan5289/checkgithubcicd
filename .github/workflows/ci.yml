@@ -27,39 +27,40 @@ jobs:
       - name: Install cocoapods-clean
         run: sudo gem install cocoapods-clean
         
-     - name: List files in checkcicd directory
+      # Step 4: List files in checkcicd directory
+      - name: List files in checkcicd directory
         run: ls ./checkcicd
 
-      # Step 4: Deintegrate CocoaPods (removes all CocoaPods integrations)
+      # Step 5: Deintegrate CocoaPods (removes all CocoaPods integrations)
       - name: Deintegrate CocoaPods
         run: pod deintegrate --project-directory ./checkcicd
         working-directory: ./checkcicd  # Adjust if your Podfile is in a subdirectory
       
-      # Step 5: Clean CocoaPods (cleans up all CocoaPods related artifacts)
+      # Step 6: Clean CocoaPods (cleans up all CocoaPods related artifacts)
       - name: Clean CocoaPods
         run: |
           pod clean
           pod cache clean --all
         working-directory: ./checkcicd
 
-      # Step 6: Install CocoaPods with repo update
+      # Step 7: Install CocoaPods with repo update
       - name: Install CocoaPods
         run: pod install --repo-update
         working-directory: ./checkcicd
       
-      # Step 7: Set permissions on Derived Data (optional)
+      # Step 8: Set permissions on Derived Data (optional)
       - name: Set permissions on Derived Data
         run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
 
-      # Step 8: Clean Derived Data (optional, helps avoid cache issues)
+      # Step 9: Clean Derived Data (optional, helps avoid cache issues)
       - name: Clean Derived Data
         run: sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
 
-      # Step 9: Clean the project (optional)
+      # Step 10: Clean the project (optional)
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
 
-      # Step 10: Build the project
+      # Step 11: Build the project
       - name: Build project
         run: |
           xcodebuild -scheme CheckCICD \
