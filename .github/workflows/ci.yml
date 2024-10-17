@@ -36,19 +36,23 @@ jobs:
         run: pod install
         working-directory: ./checkcicd  # Adjust if your Podfile is in a subdirectory
             
-      # Step 6: Set permissions on Derived Data
+      # Step 6: Create Derived Data directory if it doesn't exist
+      - name: Create Derived Data directory if it doesnt exist
+        run: mkdir -p ~/Library/Developer/Xcode/DerivedData
+        
+      # Step 7: Set permissions on Derived Data
       - name: Set permissions on Derived Data
         run: sudo chmod -R 777 ~/Library/Developer/Xcode/DerivedData
         
-      # Step 7: Clean Derived Data (optional, helps avoid cache issues)
+      # Step 8: Clean Derived Data (optional, helps avoid cache issues)
       - name: Clean Derived Data
         run: sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
         
-      # Step 8: Clean the project (optional step)
+      # Step 9: Clean the project (optional step)
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
         
-      # Step 9: Build the project
+      # Step 10: Build the project
       - name: Build project
         run: |
           xcodebuild -scheme CheckCICD \
@@ -59,7 +63,7 @@ jobs:
           USE_SANDBOX=NO \
           build
         
-      # Step 10: Upload test results (optional)
+      # Step 11: Upload test results (optional)
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
