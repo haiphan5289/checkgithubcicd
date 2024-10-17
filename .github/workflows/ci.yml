@@ -33,7 +33,7 @@ jobs:
 
       # Step 4: Deintegrate CocoaPods (removes all CocoaPods integrations)
       - name: Deintegrate CocoaPods
-        run: pod deintegrate ./checkcicd/CheckCICD.xcodeproj
+        run: pod deintegrate --allow-root
         working-directory: ./checkcicd # Adjust if your Podfile is in a subdirectory
       
       # Step 6: Clean CocoaPods (cleans up all CocoaPods related artifacts)
