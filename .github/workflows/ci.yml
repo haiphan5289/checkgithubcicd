@@ -34,7 +34,7 @@ jobs:
       # Step 5: Run pod install
       - name: Install Pods
         run: pod install
-        working-directory: ./YourProjectDirectory  # Adjust if your Podfile is in a subdirectory
+        working-directory: ./checkcicd  # Adjust if your Podfile is in a subdirectory
 
       # Step 6: Clean Derived Data (optional, helps avoid cache issues)
       - name: Clean Derived Data
