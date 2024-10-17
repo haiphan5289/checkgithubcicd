@@ -13,40 +13,34 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      # Step 2: Set up Xcode
-      - name: Set up Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.0'
-
-      # Step 3: Install cocoapods-clean (to ensure pod cleanup)
-      - name: Install cocoapods-clean
-        run: sudo gem install cocoapods-clean
-        
-      # Step 4: List files in checkcicd directory
-      - name: List files in checkcicd directory
-        run: ls ./checkcicd
-
-      # Step 4: Deintegrate CocoaPods (removes all CocoaPods integrations)
-      - name: Deintegrate CocoaPods
-        run: pod deintegrate --allow-root CheckCICD.xcworkspace
-        working-directory: ./checkcicd  # Đảm bảo rằng đường dẫn đúng đến thư mục chứa .xcworkspace
-      
-      # Step 6: Clean CocoaPods (cleans up all CocoaPods related artifacts)
-      - name: Clean CocoaPods
+     - uses: actions/checkout@v4
+      - name: Pod Install
+        working-directory: ./
+        run: pod install
+        continue-on-error: true
+        id: pod1
+      - name: Trying to fix in case of failed (1)
+        working-directory: ./
+        continue-on-error: true
+        id: pod2
+        if: steps.pod1.outcome == 'failure'
         run: |
-          pod clean
-          pod cache clean --all
-        working-directory: ./checkcicd
-
-      # Step 7: Install CocoaPods with repo update
-      - name: Install CocoaPods
-        run: pod install --repo-update
-        working-directory: ./checkcicd
+            echo "Run pod install again with repo update"
+            pod install --repo-update
+      - name: Trying to fix in case of failed (2)
+        working-directory: ./
+        continue-on-error: true
+        id: pod3
+        if: steps.pod2.outcome == 'failure'
+        run: |
+            echo "Run pod install again as x86"
+            arch -x86_64 pod install
+      - name: Trying to fix in case of failed (3)
+        working-directory: ./
+        if: steps.pod3.outcome == 'failure'
+        run: |
+            echo "Run pod install again as x84 with repo update"
+            arch -x86_64 pod install --repo-update
       
       # Step 8: Set permissions on Derived Data (optional)
       - name: Set permissions on Derived Data
