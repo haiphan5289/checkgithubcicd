@@ -8,11 +8,5 @@ target 'CheckCICD' do
   # Pods for CheckCICD
 
 pod 'SnapKit'
-pod 'RealmSwift'
-pod 'RxSwift'
-pod 'RxCocoa'
-pod 'RxDataSources'
-pod 'RxGesture'
-pod 'Differentiator'
 
 end
