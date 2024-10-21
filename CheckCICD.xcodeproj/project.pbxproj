@@ -26,6 +26,7 @@
 		3EB45A692CBE63430096CCBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EB45A6C2CBE63430096CCBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EB45A6E2CBE63430096CCBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EE748D92CC669A80044B158 /* CheckCICD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckCICD.entitlements; sourceTree = "<group>"; };
 		4D88D23A58E57FFE6120EA3A /* Pods_CheckCICD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CheckCICD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A617EB71FDB63CEF97DD41A0 /* Pods-CheckCICD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckCICD.debug.xcconfig"; path = "Target Support Files/Pods-CheckCICD/Pods-CheckCICD.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +64,7 @@
 		3EB45A5F2CBE63420096CCBC /* CheckCICD */ = {
 			isa = PBXGroup;
 			children = (
+				3EE748D92CC669A80044B158 /* CheckCICD.entitlements */,
 				3EB45A602CBE63420096CCBC /* AppDelegate.swift */,
 				3EB45A622CBE63420096CCBC /* SceneDelegate.swift */,
 				3EB45A642CBE63420096CCBC /* ViewController.swift */,
@@ -359,6 +361,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CheckCICD/CheckCICD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3TYP89QWY5;
@@ -394,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CheckCICD/CheckCICD.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3TYP89QWY5;
