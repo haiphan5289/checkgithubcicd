@@ -35,9 +35,6 @@ jobs:
         working-directory: ./checkcicd  # Adjust the path if necessary
         run: pod install --repo-update
         
-      - name: Install CocoaPods
-        working-directory: ./path/to/your/Podfile  # Adjust this path if necessary
-        run: pod install --repo-update
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
 
