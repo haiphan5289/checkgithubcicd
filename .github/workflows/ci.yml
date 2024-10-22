@@ -1,4 +1,4 @@
-name: GitHub Action
+name: Swift CI/CD Pipeline
 
 on:
   push:
@@ -9,24 +9,60 @@ on:
       - main
 
 jobs:
-  deploy:
-    name: GitHub Pipeline
+  build:
     runs-on: macos-latest
     
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
         
-      - name: Selecting Xcode Version
-        run: sudo xcode-select -switch /Applications/Xcode.app
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
         
-      - name: Running Xcode version Is?
-        run: /usr/bin/xcodebuild -version
-   
-      - name: Build Cleanup
+      - name: Install dependencies
+        run: bundle install
+        
+      - name: Set Fastlane session
+        run: echo "FASTLANE_SESSION=${{ secrets.FASTLANE_SESSION }}" >> $GITHUB_ENV
+        
+      - name: Set FASTLANE_USER and FASTLANE_APP_SPECIFIC_PASSWORD
         run: |
-          xcodebuild clean -project GitHubAction.xcodeproj -scheme GitHubAction | xcpretty
-          
+          echo "FASTLANE_USER=${{ secrets.FASTLANE_USER }}" >> $GITHUB_ENV
+          echo "FASTLANE_PASSWORD=${{ secrets.FASTLANE_PASSWORD }}" >> $GITHUB_ENV
+        
+      - name: Set up fastlane
+        run: |
+          export MATCH_GIT_URL="https://github.com/haiphan5289/ios-certificates.git"
+          bundle exec fastlane match appstore
+        
+      - name: Run Fastlane
+        run: |
+          bundle exec fastlane beta
+        
+      - name: Update CocoaPods
+        run: sudo gem install cocoapods
+        
+      - name: List files in checkcicd directory
+        run: ls -la ./checkcicd
+        
+      - name: Clean CocoaPods cache
+        run: pod cache clean --all
+        
+      - name: Install CocoaPods with logs
+        working-directory: ./checkcicd  # Adjust this to the correct project directory
+        run: pod install --repo-update
+        continue-on-error: false
+        id: pod_install
+        
+      - name: Install CocoaPods with repo update
+        working-directory: ./checkcicd  # Adjust the path if necessary
+        run: pod install --repo-update
+        
+      - name: Clean project
+        run: xcodebuild clean -scheme CheckCICD
+        
       - name: Build project
         run: |
           xcodebuild -workspace CheckCICD.xcworkspace -scheme CheckCICD -configuration Debug -sdk iphoneos -allowProvisioningUpdates clean build
