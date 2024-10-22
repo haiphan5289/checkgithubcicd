@@ -40,7 +40,6 @@ jobs:
 
       - name: Build project
         run: |
-          xcodebuild -scheme CheckCICD \
-          -sdk iphonesimulator \
-          -destination "platform=iOS Simulator,name=iPhone 14,OS=16.0" \
-          build
+          xcodebuild -workspace CheckCICD.xcworkspace -scheme CheckCICD -configuration Debug -sdk iphoneos -allowProvisioningUpdates clean build
+          
+                    
