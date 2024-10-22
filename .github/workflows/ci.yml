@@ -25,8 +25,7 @@ jobs:
         run: bundle install
 
       - name: Set MATCH_PASSWORD
-        env:
-          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Đảm bảo secret này đã được thêm vào repo settings
+        run: echo "MATCH_PASSWORD=${{ secrets.MATCH_PASSWORD }}" >> $GITHUB_ENV  # Đặt biến môi trường
 
       - name: Set up fastlane
         run: |
