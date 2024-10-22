@@ -23,6 +23,14 @@ jobs:
           
       - name: Install dependencies
         run: bundle install
+        
+         - name: Set MATCH_PASSWORD
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }} # Sử dụng secrets
+
+      - name: Run Fastlane
+        run: |
+          bundle exec fastlane <lane_name>
 
       - name: Set up fastlane
         run: |
