@@ -39,7 +39,7 @@ jobs:
         
       - name: Run Fastlane
         run: |
-          bundle exec fastlane <lane_name>
+          bundle exec fastlane deploy
         
       - name: Update CocoaPods
         run: sudo gem install cocoapods
