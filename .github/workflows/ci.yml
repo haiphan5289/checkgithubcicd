@@ -30,7 +30,7 @@ jobs:
       - name: Set FASTLANE_USER and FASTLANE_APP_SPECIFIC_PASSWORD
         run: |
           echo "FASTLANE_USER=${{ secrets.FASTLANE_USER }}" >> $GITHUB_ENV
-          echo "FASTLANE_APP_SPECIFIC_PASSWORD=${{ secrets.FASTLANE_APP_SPECIFIC_PASSWORD }}" >> $GITHUB_ENV
+          echo "FASTLANE_PASSWORD=${{ secrets.FASTLANE_PASSWORD }}" >> $GITHUB_ENV
 
         
       - name: Set up fastlane
