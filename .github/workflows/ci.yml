@@ -21,9 +21,6 @@ jobs:
         with:
           ruby-version: 2.7
 
-      - name: Install dependencies
-        run: bundle install
-
       - name: Set up fastlane
         run: |
           export MATCH_GIT_URL="https://github.com/haiphan5289/ios-certificates.git"
