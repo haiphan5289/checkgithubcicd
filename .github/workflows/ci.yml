@@ -22,7 +22,7 @@ jobs:
           ruby-version: 2.7
 
       - name: Select Xcode version
-        run: sudo xcode-select -switch /Applications/Xcode_14.2.app  # Ensure this is the correct path and version
+        run: sudo xcode-select -switch /Applications/Xcode.app  # Ensure this is the correct path and version
 
       - name: Install dependencies
         run: bundle install
