@@ -41,6 +41,9 @@ jobs:
           export MATCH_GIT_URL="https://github.com/haiphan5289/ios-certificates.git"
           bundle exec fastlane match development
         
+      - name: List installed certificates
+        run: security find-identity -p codesigning
+        
       - name: Run Fastlane
         run: |
           bundle exec fastlane beta  # Replace 'beta' with your desired lane name
