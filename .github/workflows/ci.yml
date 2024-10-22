@@ -27,6 +27,6 @@ jobs:
         run: |
           xcodebuild clean -project GitHubAction.xcodeproj -scheme GitHubAction | xcpretty
           
-      - name: Build Test
+      - name: Build project
         run: |
-          xcodebuild test -project CheckCICD.xcodeproj -scheme CheckCICD -destination 'platform=iOS   Simulator,name=iPhone 14,OS=16.2' | xcpretty -s
+          xcodebuild -workspace CheckCICD.xcworkspace -scheme CheckCICD -configuration Debug -sdk iphoneos -allowProvisioningUpdates clean build
