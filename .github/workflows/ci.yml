@@ -20,10 +20,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-
-      - name: Select Xcode version
-        run: sudo xcode-select -switch /Applications/Xcode.app  # Ensure this is the correct path and version
-
+        
       - name: Install dependencies
         run: bundle install
         
@@ -43,13 +40,7 @@ jobs:
         run: |
           export MATCH_GIT_URL="https://github.com/haiphan5289/ios-certificates.git"
           bundle exec fastlane match development
-
-      - name: Decode Provisioning Profile
-        run: echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > /tmp/CheckCICD.mobileprovision
-
-      - name: Copy Provisioning Profile to Xcode
-        run: cp /tmp/CheckCICD.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-
+        
       - name: List installed certificates
         run: security find-identity -p codesigning
         
@@ -79,6 +70,9 @@ jobs:
       - name: Clean project
         run: xcodebuild clean -scheme CheckCICD
         
+      - name: Print Xcode Build Log
+        run: cat /Users/runner/Library/Logs/gym/CheckCICD-CheckCICD.log
+      
       - name: Build project
         run: |
           xcodebuild -workspace CheckCICD.xcworkspace -scheme CheckCICD -configuration Debug -sdk iphoneos -allowProvisioningUpdates clean build
