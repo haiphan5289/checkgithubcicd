@@ -24,11 +24,8 @@ jobs:
       - name: Install dependencies
         run: bundle install
         
-      - name: Set FASTLANE_USER and FASTLANE_APP_SPECIFIC_PASSWORD
-        run: |
-          echo "FASTLANE_USER=${{ secrets.FASTLANE_USER }}" >> $GITHUB_ENV
-          echo "FASTLANE_APP_SPECIFIC_PASSWORD=${{ secrets.FASTLANE_APP_SPECIFIC_PASSWORD }}" >> $GITHUB_ENV
-
+      - name: Set Fastlane session
+        run: echo "FASTLANE_SESSION=${{ secrets.FASTLANE_SESSION }}" >> $GITHUB_ENV
         
       - name: Set MATCH_PASSWORD
         run: echo "MATCH_PASSWORD=${{ secrets.MATCH_PASSWORD }}" >> $GITHUB_ENV
@@ -40,7 +37,7 @@ jobs:
         
       - name: Run Fastlane
         run: |
-          bundle exec fastlane <lane_name>  # Thay <lane_name> bằng tên lane bạn muốn chạy
+          bundle exec fastlane <lane_name>
         
       - name: Update CocoaPods
         run: sudo gem install cocoapods
