@@ -72,7 +72,13 @@ jobs:
         
       - name: Print Xcode Build Log
         run: cat /Users/runner/Library/Logs/gym/CheckCICD-CheckCICD.log
-      
+        
+      - name: Decode Provisioning Profile
+        run: echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > /tmp/CheckCICD.mobileprovision
+        
+      - name: Copy Provisioning Profile to Xcode
+        run: cp /tmp/CheckCICD.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
       - name: Build project
         run: |
           xcodebuild -workspace CheckCICD.xcworkspace -scheme CheckCICD -configuration Debug -sdk iphoneos -allowProvisioningUpdates clean build
