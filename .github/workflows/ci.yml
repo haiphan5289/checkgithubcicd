@@ -30,10 +30,12 @@ jobs:
       - name: Set MATCH_PASSWORD
         run: echo "MATCH_PASSWORD=${{ secrets.MATCH_PASSWORD }}" >> $GITHUB_ENV
         
-      - name: Set FASTLANE_USER and FASTLANE_APP_SPECIFIC_PASSWORD
+     - name: Set Fastlane credentials
         run: |
-          echo "FASTLANE_USER=${{ secrets.FASTLANE_USER }}" >> $GITHUB_ENV
-          echo "FASTLANE_APP_SPECIFIC_PASSWORD=${{ secrets.FASTLANE_APP_SPECIFIC_PASSWORD }}" >> $GITHUB_ENV
+            echo "FASTLANE_USER=${{ secrets.FASTLANE_USER }}" >> $GITHUB_ENV
+            echo "FASTLANE_PASSWORD=${{ secrets.FASTLANE_PASSWORD }}" >> $GITHUB_ENV
+            echo "FASTLANE_APP_SPECIFIC_PASSWORD=${{ secrets.FASTLANE_APP_SPECIFIC_PASSWORD }}" >> $GITHUB_ENV
+
 
       - name: Set up fastlane
         run: |
