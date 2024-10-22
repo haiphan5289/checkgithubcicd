@@ -15,6 +15,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+        
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - name: Install dependencies
+      run: bundle install
+
+    - name: Set up fastlane
+      run: |
+        export MATCH_GIT_URL="https://github.com/yourusername/ios-certificates.git"
+        bundle exec fastlane match appstore
 
       - name: Update CocoaPods
         run: sudo gem install cocoapods
